@@ -7,6 +7,7 @@ const Table = () => {
     id: createId(),
     firstName: "",
     lastName: "",
+    contact: "",
   };
 
   const [tableData, setTableData] = useState(employ.data);
@@ -33,7 +34,7 @@ const Table = () => {
     "id",
     "firstName",
     "lastName",
-    "numbers",
+    "contact",
     "actions",
   ];
 
@@ -53,7 +54,7 @@ const Table = () => {
         <td>{data.id}</td>
         <td>{data.firstName}</td>
         <td>{data.lastName}</td>
-        <td>{data.numbers}</td>
+        <td>{data.contact}</td>
         <td>
           <a href="/#" onClick={() => handleEdit(data.id)}>
             edit
@@ -81,6 +82,7 @@ const Table = () => {
       id: id,
       firstName: user.firstName,
       lastName: user.lastName,
+      contact: user.contact,
     };
     setTableData([...tableData, newUser]);
     setUser(initialFormState);
@@ -112,10 +114,17 @@ const Table = () => {
         />
         <input
           type="text"
-          placeholder="First name"
+          placeholder="Last name"
           name="lastName"
           onChange={handleChange}
           value={user.lastName}
+        />
+        <input
+          type="text"
+          placeholder="Contact"
+          name="contact"
+          onChange={handleChange}
+          value={user.contact}
         />
         <button>{edit ? "Edit" : "Add"}</button>
       </form>
@@ -123,7 +132,15 @@ const Table = () => {
         <thead>
           <tr>{generateHeaders}</tr>
         </thead>
-        <tbody>{generateData}</tbody>
+        <tbody>
+          {tableData.length < 1 ? (
+            <tr>
+              <td>No users</td>
+            </tr>
+          ) : (
+            generateData
+          )}
+        </tbody>
       </table>
     </div>
   );
