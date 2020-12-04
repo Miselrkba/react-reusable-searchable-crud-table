@@ -17,26 +17,20 @@ const Table = () => {
   const [searchInput, setSearchInput] = useState("");
   const [newTableData, setNewTableData] = useState([...tableData])
 
-
- //what do i know?
-
-//have an object for new
- 
-
-  //filter object 1
   useEffect(() => {
     if(searchInput.length >= 1){
-      let ctableData = employ.data;
-      const searchResults = ctableData.filter((user) => {
+      
+      const searchResults = [...newTableData].filter((user) => {
         return (
           user.firstName.toLowerCase().includes(searchInput) ||
           user.lastName.toLowerCase().includes(searchInput)
         );
       });
       setTableData(searchResults);
+     
     }
     else{
-      setTableData(tableData)
+      setTableData(newTableData)
     }
 
     // setTableData(
@@ -111,6 +105,7 @@ const Table = () => {
       contact: user.contact,
     };
     setTableData([...tableData, newUser]);
+    setNewTableData([...tableData, newUser])
     setUser(initialFormState);
     setId(createId());
     setEdit(false);
