@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import employ from "../employ.json";
 import { createId } from "../helpers/helpers";
 
@@ -15,44 +15,20 @@ const Table = () => {
   const [user, setUser] = useState(initialFormState);
   const [id, setId] = useState(createId());
   const [searchInput, setSearchInput] = useState("");
-  const [newTableData, setNewTableData] = useState([...tableData])
 
-
- //what do i know?
-
-//have an object for new
- 
-
-  //filter object 1
   useEffect(() => {
-    if(searchInput.length >= 1){
-      let ctableData = employ.data;
-      const searchResults = ctableData.filter((user) => {
-        return (
-          user.firstName.toLowerCase().includes(searchInput) ||
-          user.lastName.toLowerCase().includes(searchInput)
-        );
-      });
-      setTableData(searchResults);
-    }
-    else{
-      setTableData(tableData)
-    }
-
-    // setTableData(
-    //   tableData.map((item) => {
-    //     return {
-    //       id: createId(),
-    //       firstName: item.firstName,
-    //       lastName: item.lastName,
-    //       contact: item.contact,
-    //     };
-    //   })
-    // );
-  }, [searchInput]);
-
-  console.log('newtabledata', newTableData);
-  console.log('tabledata', tableData);
+    let tableData = [...employ.data];
+    setTableData(
+      tableData.map((item) => {
+        return {
+          id: createId(),
+          firstName: item.firstName,
+          lastName: item.lastName,
+          contact: item.contact,
+        };
+      })
+    );
+  }, []);
 
   const headers = [
     <input type="checkbox" />,
@@ -98,7 +74,6 @@ const Table = () => {
     setUser({ ...user, [name]: value });
   };
 
-  //copy tableData and add new user to it
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!user.firstName && !user.lastName) {
@@ -133,9 +108,20 @@ const Table = () => {
     setSearchInput(e.target.value);
   };
 
-  // useEffect(() => {
+  useLayoutEffect
 
-  // }, [searchInput]);
+  useEffect(() => {
+    if (searchInput) {
+      const searchResults = tableData.filter((user) => {
+        return (
+          user.firstName.toLowerCase().includes(searchInput) ||
+          user.lastName.toLowerCase().includes(searchInput)
+        );
+      });
+      setTableData(searchResults);
+    }
+    else setTableData(tableData)
+  }, [searchInput]);
 
   //when returning from search need to check updated data
 
