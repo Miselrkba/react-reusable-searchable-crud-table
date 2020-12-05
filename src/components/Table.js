@@ -15,11 +15,30 @@ const Table = () => {
   const [user, setUser] = useState(initialFormState);
   const [id, setId] = useState(createId());
   const [searchInput, setSearchInput] = useState("");
-  const [newTableData, setNewTableData] = useState([...tableData])
+  const [newTableData, setNewTableData] = useState([...tableData]);
+
+  //we need to copy latest userData object and setTabledata to it
+  //then we need to display old latest object
+
+  //2.now we need to filter through the latest data object object
+  //3.and setTabledata to the newTableData object to render latest values
+
+  //we re filtering copied tableData and setting oldTableData back to the results
+  //then we're setting oldTabledata(that is being rendered) back to newTableData
+  //which is updated with the latest users
+
+  //after searching it puts back the original value so deleted values
+  //are not showing up
+
+  //i delete something from old table data which i want
+  //but then it gets rendered back on again by generate headers which maps
+  //old tableData which I want and Search reverts it to newTableData
+  // which is not right
+  // when search is at 0 it updates tabledata back to original value
+  //instead of updated one
 
   useEffect(() => {
-    if(searchInput.length >= 1){
-      
+    if (searchInput.length >= 1) {
       const searchResults = [...newTableData].filter((user) => {
         return (
           user.firstName.toLowerCase().includes(searchInput) ||
@@ -27,10 +46,8 @@ const Table = () => {
         );
       });
       setTableData(searchResults);
-     
-    }
-    else{
-      setTableData(newTableData)
+    } else {
+      setTableData([...newTableData]);
     }
 
     // setTableData(
@@ -43,10 +60,10 @@ const Table = () => {
     //     };
     //   })
     // );
-  }, [searchInput]);
+  }, [searchInput, newTableData]);
 
-  console.log('newtabledata', newTableData);
-  console.log('tabledata', tableData);
+  console.log("newtabledata", newTableData);
+  console.log("tabledata", tableData);
 
   const headers = [
     <input type="checkbox" />,
@@ -92,7 +109,9 @@ const Table = () => {
     setUser({ ...user, [name]: value });
   };
 
+  //add new user to object - and render this new object
   //copy tableData and add new user to it
+  //also set newTableData to be able to get latest values
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!user.firstName && !user.lastName) {
@@ -105,23 +124,26 @@ const Table = () => {
       contact: user.contact,
     };
     setTableData([...tableData, newUser]);
-    setNewTableData([...tableData, newUser])
+    setNewTableData([...tableData, newUser]);
     setUser(initialFormState);
     setId(createId());
     setEdit(false);
   };
 
   const handleEdit = (id) => {
-    setEdit(!edit);
-    setTableData(tableData.filter((item) => item.id !== id));
-    setUser(tableData.find((item) => item.id === id));
+    setEdit(true);
+    setTableData(newTableData.filter((item) => item.id !== id));
+    setUser(newTableData.find((item) => item.id === id));
   };
 
+  //its deleting out of the old tableData
+  //it needs to delete from new tableData
+  //if item is deleted we need to update old tableData
   const handleDelete = (id) => {
     if (edit) {
       return;
     }
-    setTableData(tableData.filter((item) => item.id !== id));
+    setNewTableData(tableData.filter((item) => item.id !== id))
   };
 
   const handleSearch = (e) => {
