@@ -31,6 +31,10 @@ const Table = () => {
   //then we're setting oldTabledata(that is being rendered) back to newTableData
   //which is updated with the latest users
 
+
+  //Search functionality
+  //if there is value in searchInput filter updated table 
+  //else display updated table
   useEffect(() => {
     if (searchInput.length >= 1) {
       const searchResults = [...newTableData].filter((user) => {
@@ -45,15 +49,23 @@ const Table = () => {
     }
   }, [searchInput, newTableData]);
 
+  //set search value to target value
+  const handleSearch = (e) => {
+    setSearchInput(e.target.value);
+  };
+
+
+  //Adding new user functionality
+  //set First Name and Last Name Email and Contact to target value
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
 
-  //add new user to object - and render this new object
+  //after Submiting add new user to object - and render this new object
   //copy tableData and add new user to it
   //also set newTableData to be able to get latest values
-
+  //if editing use the current id of user
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!user.firstName && !user.lastName) {
@@ -88,21 +100,23 @@ const Table = () => {
     }
   };
 
+  //Editing functionality
+  //set editing to true and filter updated table data to all users except selected user
+  //find user to be edited and set input value to this user
   const handleEdit = (id) => {
     setEdit(true);
     setTableData(newTableData.filter((item) => item.id !== id));
     setUser(newTableData.find((item) => item.id === id));
   };
 
+  //Delete user functionality
+  //if a user is being edited switch off delete funtionality
+  //filter all users that are not being deleted 
   const handleDelete = (id) => {
     if (edit) {
       return;
     }
     setNewTableData(tableData.filter((item) => item.id !== id));
-  };
-
-  const handleSearch = (e) => {
-    setSearchInput(e.target.value);
   };
 
   return (
