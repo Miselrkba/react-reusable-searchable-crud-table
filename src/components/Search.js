@@ -1,14 +1,19 @@
-import React from 'react'
+import React from "react";
 
-const Search = ({handleSearch, searchInput}) => {
-    return (
+const Search = ({ handleSearch, searchInput }) => {
+  return (
+    <div class="form-row search-container">
+      <div class="col-md-4 col-sm-5">
         <input
-        type="text"
-        onChange={handleSearch}
-        placeholder="Search..."
-        value={searchInput}
-      />
-    )
-}
+          className="form-control"
+          type="text"
+          onChange={handleSearch}
+          placeholder="Search..."
+          value={searchInput}
+        />
+      </div>
+    </div>
+  );
+};
 
-export default Search
+export default Search;

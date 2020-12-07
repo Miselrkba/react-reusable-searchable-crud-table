@@ -20,20 +20,10 @@ const Table = () => {
   const [id, setId] = useState(createId());
   const [searchInput, setSearchInput] = useState("");
   const [newTableData, setNewTableData] = useState([...tableData]);
-
-  //we need to copy latest userData object and setTabledata to it
-  //then we need to display old latest object
-
-  //now we need to filter through the latest data object object
-  //and setTabledata to the newTableData object to render latest values
-
-  //we re filtering copied tableData and setting oldTableData back to the results
-  //then we're setting oldTabledata(that is being rendered) back to newTableData
-  //which is updated with the latest users
-
+  const [addNewUser, setAddNewUser] = useState(false);
 
   //Search functionality
-  //if there is value in searchInput filter updated table 
+  //if there is value in searchInput filter updated table
   //else display updated table
   useEffect(() => {
     if (searchInput.length >= 1) {
@@ -54,7 +44,6 @@ const Table = () => {
     setSearchInput(e.target.value);
   };
 
-
   //Adding new user functionality
   //set First Name and Last Name Email and Contact to target value
   const handleChange = (e) => {
@@ -62,7 +51,7 @@ const Table = () => {
     setUser({ ...user, [name]: value });
   };
 
-  //after Submiting add new user to object - and render this new object
+  //after Submiting add new user to old tableData and newTabledata
   //copy tableData and add new user to it
   //also set newTableData to be able to get latest values
   //if editing use the current id of user
@@ -111,7 +100,7 @@ const Table = () => {
 
   //Delete user functionality
   //if a user is being edited switch off delete funtionality
-  //filter all users that are not being deleted 
+  //filter all users that are not being deleted
   const handleDelete = (id) => {
     if (edit) {
       return;
@@ -120,15 +109,18 @@ const Table = () => {
   };
 
   return (
-    <div>
+    <div className='main-table-container'>
       <h1>Employee Table</h1>
       <Search handleSearch={handleSearch} searchInput={searchInput} />
-      <AddUserForm
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-        user={user}
-        edit={edit}
-      />
+      <button className='btn btn-primary' onClick={() => setAddNewUser(!addNewUser)}>Add new user</button>
+      {addNewUser ? (
+        <AddUserForm
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          user={user}
+          edit={edit}
+        />
+      ) : null}
       <div className="table-responsive">
         <table className="table table-dark table-hover">
           <TableHeaders />
