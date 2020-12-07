@@ -5,6 +5,7 @@ import AddUserForm from "./AddUserForm";
 import Search from "./Search";
 import TableDataCells from "./TableDataCells";
 import TableHeaders from "./TableHeaders";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 const Table = () => {
   const initialFormState = {
@@ -108,11 +109,19 @@ const Table = () => {
     setNewTableData(tableData.filter((item) => item.id !== id));
   };
 
+  
+
   return (
-    <div className='main-table-container'>
-      <h1>Employee Table</h1>
+    <div className="main-table-container">
+      <h1>Manage Employees</h1>
+      <button
+        className="btn btn-info add-button"
+        onClick={() => setAddNewUser(!addNewUser)}
+      >
+        <i className="fas fa-user-plus"></i>
+        Add new user
+      </button>
       <Search handleSearch={handleSearch} searchInput={searchInput} />
-      <button className='btn btn-primary' onClick={() => setAddNewUser(!addNewUser)}>Add new user</button>
       {addNewUser ? (
         <AddUserForm
           handleChange={handleChange}

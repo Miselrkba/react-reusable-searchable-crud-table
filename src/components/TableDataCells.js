@@ -1,6 +1,6 @@
 import React from "react";
 
-const TableDataCells = ({tableData, handleEdit, handleDelete}) => {
+const TableDataCells = ({ tableData, handleEdit, handleDelete }) => {
   const generateData = tableData.map((data) => (
     <React.Fragment key={data.id}>
       <tr>
@@ -10,13 +10,20 @@ const TableDataCells = ({tableData, handleEdit, handleDelete}) => {
         <td>{data.email}</td>
         <td>{data.contact}</td>
         <td>
-          <a href="/#" onClick={() => handleEdit(data.id)}>
-            edit
-          </a>
-          <br />
-          <a href="/#" onClick={() => handleDelete(data.id)}>
-            delete
-          </a>
+          <button
+            className="btn btn-warning"
+            onClick={() => handleEdit(data.id)}
+          >
+            <i className="fas fa-user-edit"></i>
+            {/* edit */}
+          </button>
+          <button
+            className="btn btn-danger"
+            onClick={() => handleDelete(data.id)}
+          >
+            <i className="fas fa-trash-alt"></i>
+            {/* delete */}
+          </button>
         </td>
       </tr>
     </React.Fragment>

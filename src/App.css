@@ -1,5 +1,4 @@
-
-h1{
+h1 {
   text-align: center;
 }
 
@@ -14,4 +13,12 @@ h1{
 .form-container {
   margin-top: 1em;
   margin-bottom: 1em;
+}
+
+.add-button {
+  margin-bottom: 0.5em;
+}
+
+.fa-user-plus {
+  padding-right: 0.5em;
 }
