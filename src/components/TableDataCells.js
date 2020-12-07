@@ -10,20 +10,22 @@ const TableDataCells = ({ tableData, handleEdit, handleDelete }) => {
         <td>{data.email}</td>
         <td>{data.contact}</td>
         <td>
+          <span className='edit-button-container'>
           <button
             className="btn btn-warning"
             onClick={() => handleEdit(data.id)}
           >
             <i className="fas fa-user-edit"></i>
-            {/* edit */}
           </button>
+          </span>
+          <span className='delete-button-container'>
           <button
             className="btn btn-danger"
             onClick={() => handleDelete(data.id)}
           >
             <i className="fas fa-trash-alt"></i>
-            {/* delete */}
           </button>
+          </span>
         </td>
       </tr>
     </React.Fragment>

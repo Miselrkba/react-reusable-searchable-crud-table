@@ -95,6 +95,7 @@ const Table = () => {
   //find user to be edited and set input value to this user
   const handleEdit = (id) => {
     setEdit(true);
+    setAddNewUser(true);
     setTableData(newTableData.filter((item) => item.id !== id));
     setUser(newTableData.find((item) => item.id === id));
   };
@@ -109,11 +110,19 @@ const Table = () => {
     setNewTableData(tableData.filter((item) => item.id !== id));
   };
 
-  
+  //S -when editing form is not showing
+  //T -onHandleEdit need to show add user form
 
   return (
     <div className="main-table-container">
-      <h1>Manage Employees</h1>
+      <div className="header">
+        <h1>Manage Employees</h1>
+      </div>
+      {edit ? (
+          <div class="alert alert-success fade-in" role="alert">
+            Edit user mode on
+          </div>
+        ) : null}
       <button
         className="btn btn-info add-button"
         onClick={() => setAddNewUser(!addNewUser)}
@@ -131,7 +140,7 @@ const Table = () => {
         />
       ) : null}
       <div className="table-responsive">
-        <table className="table table-dark table-hover">
+        <table className="table table-dark table-hover table-bordered">
           <TableHeaders />
           <TableDataCells
             tableData={tableData}
