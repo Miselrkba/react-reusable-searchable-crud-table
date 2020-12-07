@@ -7,6 +7,7 @@ const Table = () => {
     id: "",
     firstName: "",
     lastName: "",
+    email: "",
     contact: "",
   };
   const [tableData, setTableData] = useState(data);
@@ -54,6 +55,7 @@ const Table = () => {
     "Employee Code",
     "First Name",
     "Last Name",
+    "Email",
     "Contact",
     "Actions",
   ];
@@ -71,6 +73,7 @@ const Table = () => {
         <td>{data.id}</td>
         <td>{data.firstName}</td>
         <td>{data.lastName}</td>
+        <td>{data.email}</td>
         <td>{data.contact}</td>
         <td>
           <a href="/#" onClick={() => handleEdit(data.id)}>
@@ -104,6 +107,7 @@ const Table = () => {
         id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
+        email: user.email,
         contact: user.contact,
       };
       setTableData([...tableData, newUser]);
@@ -116,6 +120,7 @@ const Table = () => {
         id: id,
         firstName: user.firstName,
         lastName: user.lastName,
+        email: user.email,
         contact: user.contact,
       };
       setTableData([...tableData, newUser]);
@@ -185,6 +190,13 @@ const Table = () => {
         />
         <input
           type="text"
+          placeholder="Email"
+          name="email"
+          onChange={handleChange}
+          value={user.email}
+        />
+        <input
+          type="text"
           placeholder="Contact"
           name="contact"
           onChange={handleChange}
@@ -192,20 +204,22 @@ const Table = () => {
         />
         <button>{edit ? "Edit" : "Add"}</button>
       </form>
-      <table className="table table-dark table-hover">
-        <thead>
-          <tr>{generateHeaders}</tr>
-        </thead>
-        <tbody>
-          {tableData.length < 1 ? (
-            <tr>
-              <td>No users</td>
-            </tr>
-          ) : (
-            generateData
-          )}
-        </tbody>
-      </table>
+      <div className="table-responsive">
+        <table className="table table-dark table-hover">
+          <thead>
+            <tr>{generateHeaders}</tr>
+          </thead>
+          <tbody>
+            {tableData.length < 1 ? (
+              <tr>
+                <td>No users</td>
+              </tr>
+            ) : (
+              generateData
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

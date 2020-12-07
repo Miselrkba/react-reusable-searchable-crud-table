@@ -93,23 +93,40 @@ const Table = () => {
   //add new user to object - and render this new object
   //copy tableData and add new user to it
   //also set newTableData to be able to get latest values
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!user.firstName && !user.lastName) {
       return;
     }
-    const newUser = {
-      id: id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      contact: user.contact,
-    };
-    setTableData([...tableData, newUser]);
-    setNewTableData([...tableData, newUser]);
-    setUser(initialFormState);
-    setEdit(false);
-    setId(createId());
+    if (edit) {
+      const newUser = {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        contact: user.contact,
+      };
+      setTableData([...tableData, newUser]);
+      setNewTableData([...tableData, newUser]);
+      setUser(initialFormState);
+      setEdit(false);
+      setId(createId());
+    } else {
+      const newUser = {
+        id: id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        contact: user.contact,
+      };
+      setTableData([...tableData, newUser]);
+      setNewTableData([...tableData, newUser]);
+      setUser(initialFormState);
+      setEdit(false);
+      setId(createId());
+    }
   };
+
+  //if editing newUser has to keep his current id
 
   console.log(edit);
   //situation - when editing ids are being changed

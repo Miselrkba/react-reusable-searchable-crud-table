@@ -25,7 +25,7 @@ export const data = [
   },
   {
     id: 'RT3UI99LK',
-    firstName: "samuel",
+    firstName: "Samuel",
     lastName: "Jackson",
     email: "samuel2@geocities.com",
     gender: "Male",
