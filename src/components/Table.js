@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import employ from "../employ.json";
+import { data } from "../data/userData";
 import { createId } from "../helpers/helpers";
 
 const Table = () => {
   const initialFormState = {
-    id: createId(),
+    id: "",
     firstName: "",
     lastName: "",
     contact: "",
   };
-
-  const [tableData, setTableData] = useState(employ.data);
+  const [tableData, setTableData] = useState(data);
   const [edit, setEdit] = useState(false);
   const [user, setUser] = useState(initialFormState);
   const [id, setId] = useState(createId());
@@ -49,29 +48,14 @@ const Table = () => {
     } else {
       setTableData([...newTableData]);
     }
-
-    // setTableData(
-    //   tableData.map((item) => {
-    //     return {
-    //       id: createId(),
-    //       firstName: item.firstName,
-    //       lastName: item.lastName,
-    //       contact: item.contact,
-    //     };
-    //   })
-    // );
   }, [searchInput, newTableData]);
 
-  console.log("newtabledata", newTableData);
-  console.log("tabledata", tableData);
-
   const headers = [
-    <input type="checkbox" />,
-    "id",
-    "firstName",
-    "lastName",
-    "contact",
-    "actions",
+    "Employee Code",
+    "First Name",
+    "Last Name",
+    "Contact",
+    "Actions",
   ];
 
   const generateHeaders = headers.map((header) => (
@@ -84,9 +68,6 @@ const Table = () => {
   const generateData = tableData.map((data) => (
     <React.Fragment key={data.id}>
       <tr>
-        <td>
-          <input type="checkbox" />
-        </td>
         <td>{data.id}</td>
         <td>{data.firstName}</td>
         <td>{data.lastName}</td>
@@ -112,23 +93,46 @@ const Table = () => {
   //add new user to object - and render this new object
   //copy tableData and add new user to it
   //also set newTableData to be able to get latest values
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!user.firstName && !user.lastName) {
       return;
     }
-    const newUser = {
-      id: id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      contact: user.contact,
-    };
-    setTableData([...tableData, newUser]);
-    setNewTableData([...tableData, newUser]);
-    setUser(initialFormState);
-    setId(createId());
-    setEdit(false);
+    if (edit) {
+      const newUser = {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        contact: user.contact,
+      };
+      setTableData([...tableData, newUser]);
+      setNewTableData([...tableData, newUser]);
+      setUser(initialFormState);
+      setEdit(false);
+      setId(createId());
+    } else {
+      const newUser = {
+        id: id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        contact: user.contact,
+      };
+      setTableData([...tableData, newUser]);
+      setNewTableData([...tableData, newUser]);
+      setUser(initialFormState);
+      setEdit(false);
+      setId(createId());
+    }
   };
+
+  //if editing newUser has to keep his current id
+
+  console.log(edit);
+  //situation - when editing ids are being changed
+  //task - keep the same Id when editing
+  //action -
+  //result -
 
   const handleEdit = (id) => {
     setEdit(true);
@@ -143,7 +147,7 @@ const Table = () => {
     if (edit) {
       return;
     }
-    setNewTableData(tableData.filter((item) => item.id !== id))
+    setNewTableData(tableData.filter((item) => item.id !== id));
   };
 
   const handleSearch = (e) => {

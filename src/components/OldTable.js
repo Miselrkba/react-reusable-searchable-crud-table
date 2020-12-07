@@ -1,42 +1,61 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import employ from "../employ.json";
+import React, { useEffect, useState } from "react";
+import { data } from "../data/userData";
 import { createId } from "../helpers/helpers";
 
 const Table = () => {
   const initialFormState = {
-    id: createId(),
+    id: "",
     firstName: "",
     lastName: "",
     contact: "",
   };
-
-  const [tableData, setTableData] = useState(employ.data);
+  const [tableData, setTableData] = useState(data);
   const [edit, setEdit] = useState(false);
   const [user, setUser] = useState(initialFormState);
   const [id, setId] = useState(createId());
   const [searchInput, setSearchInput] = useState("");
+  const [newTableData, setNewTableData] = useState([...tableData]);
+
+  //we need to copy latest userData object and setTabledata to it
+  //then we need to display old latest object
+
+  //2.now we need to filter through the latest data object object
+  //3.and setTabledata to the newTableData object to render latest values
+
+  //we re filtering copied tableData and setting oldTableData back to the results
+  //then we're setting oldTabledata(that is being rendered) back to newTableData
+  //which is updated with the latest users
+
+  //after searching it puts back the original value so deleted values
+  //are not showing up
+
+  //i delete something from old table data which i want
+  //but then it gets rendered back on again by generate headers which maps
+  //old tableData which I want and Search reverts it to newTableData
+  // which is not right
+  // when search is at 0 it updates tabledata back to original value
+  //instead of updated one
 
   useEffect(() => {
-    let tableData = [...employ.data];
-    setTableData(
-      tableData.map((item) => {
-        return {
-          id: createId(),
-          firstName: item.firstName,
-          lastName: item.lastName,
-          contact: item.contact,
-        };
-      })
-    );
-  }, []);
+    if (searchInput.length >= 1) {
+      const searchResults = [...newTableData].filter((user) => {
+        return (
+          user.firstName.toLowerCase().includes(searchInput) ||
+          user.lastName.toLowerCase().includes(searchInput)
+        );
+      });
+      setTableData(searchResults);
+    } else {
+      setTableData([...newTableData]);
+    }
+  }, [searchInput, newTableData]);
 
   const headers = [
-    <input type="checkbox" />,
-    "id",
-    "firstName",
-    "lastName",
-    "contact",
-    "actions",
+    "Employee Code",
+    "First Name",
+    "Last Name",
+    "Contact",
+    "Actions",
   ];
 
   const generateHeaders = headers.map((header) => (
@@ -49,9 +68,6 @@ const Table = () => {
   const generateData = tableData.map((data) => (
     <React.Fragment key={data.id}>
       <tr>
-        <td>
-          <input type="checkbox" />
-        </td>
         <td>{data.id}</td>
         <td>{data.firstName}</td>
         <td>{data.lastName}</td>
@@ -74,6 +90,9 @@ const Table = () => {
     setUser({ ...user, [name]: value });
   };
 
+  //add new user to object - and render this new object
+  //copy tableData and add new user to it
+  //also set newTableData to be able to get latest values
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!user.firstName && !user.lastName) {
@@ -86,42 +105,41 @@ const Table = () => {
       contact: user.contact,
     };
     setTableData([...tableData, newUser]);
+    setNewTableData([...tableData, newUser]);
     setUser(initialFormState);
-    setId(createId());
     setEdit(false);
+    setId(createId());
   };
+
+  console.log(edit);
+  //situation - when editing ids are being changed
+  //task - keep the same Id when editing
+  //action -
+  //result -
 
   const handleEdit = (id) => {
-    setEdit(!edit);
-    setTableData(tableData.filter((item) => item.id !== id));
-    setUser(tableData.find((item) => item.id === id));
+    setEdit(true);
+    setTableData(newTableData.filter((item) => item.id !== id));
+    setUser(newTableData.find((item) => item.id === id));
   };
 
+  //its deleting out of the old tableData
+  //it needs to delete from new tableData
+  //if item is deleted we need to update old tableData
   const handleDelete = (id) => {
     if (edit) {
       return;
     }
-    setTableData(tableData.filter((item) => item.id !== id));
+    setNewTableData(tableData.filter((item) => item.id !== id));
   };
 
   const handleSearch = (e) => {
     setSearchInput(e.target.value);
   };
 
-  useLayoutEffect
+  // useEffect(() => {
 
-  useEffect(() => {
-    if (searchInput) {
-      const searchResults = tableData.filter((user) => {
-        return (
-          user.firstName.toLowerCase().includes(searchInput) ||
-          user.lastName.toLowerCase().includes(searchInput)
-        );
-      });
-      setTableData(searchResults);
-    }
-    else setTableData(tableData)
-  }, [searchInput]);
+  // }, [searchInput]);
 
   //when returning from search need to check updated data
 
