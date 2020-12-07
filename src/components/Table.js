@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { data } from "../data/userData";
 import { createId } from "../helpers/helpers";
+import AddUserForm from "./AddUserForm";
+import Search from "./Search";
+import TableDataCells from "./TableDataCells";
+import TableHeaders from "./TableHeaders";
 
 const Table = () => {
   const initialFormState = {
@@ -20,22 +24,12 @@ const Table = () => {
   //we need to copy latest userData object and setTabledata to it
   //then we need to display old latest object
 
-  //2.now we need to filter through the latest data object object
-  //3.and setTabledata to the newTableData object to render latest values
+  //now we need to filter through the latest data object object
+  //and setTabledata to the newTableData object to render latest values
 
   //we re filtering copied tableData and setting oldTableData back to the results
   //then we're setting oldTabledata(that is being rendered) back to newTableData
   //which is updated with the latest users
-
-  //after searching it puts back the original value so deleted values
-  //are not showing up
-
-  //i delete something from old table data which i want
-  //but then it gets rendered back on again by generate headers which maps
-  //old tableData which I want and Search reverts it to newTableData
-  // which is not right
-  // when search is at 0 it updates tabledata back to original value
-  //instead of updated one
 
   useEffect(() => {
     if (searchInput.length >= 1) {
@@ -50,43 +44,6 @@ const Table = () => {
       setTableData([...newTableData]);
     }
   }, [searchInput, newTableData]);
-
-  const headers = [
-    "Employee Code",
-    "First Name",
-    "Last Name",
-    "Email",
-    "Contact",
-    "Actions",
-  ];
-
-  const generateHeaders = headers.map((header) => (
-    <th key={header}>
-      <a href="/#" id={header}>
-        {header}
-      </a>
-    </th>
-  ));
-  const generateData = tableData.map((data) => (
-    <React.Fragment key={data.id}>
-      <tr>
-        <td>{data.id}</td>
-        <td>{data.firstName}</td>
-        <td>{data.lastName}</td>
-        <td>{data.email}</td>
-        <td>{data.contact}</td>
-        <td>
-          <a href="/#" onClick={() => handleEdit(data.id)}>
-            edit
-          </a>
-          <br />
-          <a href="/#" onClick={() => handleDelete(data.id)}>
-            delete
-          </a>
-        </td>
-      </tr>
-    </React.Fragment>
-  ));
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -131,23 +88,12 @@ const Table = () => {
     }
   };
 
-  //if editing newUser has to keep his current id
-
-  console.log(edit);
-  //situation - when editing ids are being changed
-  //task - keep the same Id when editing
-  //action -
-  //result -
-
   const handleEdit = (id) => {
     setEdit(true);
     setTableData(newTableData.filter((item) => item.id !== id));
     setUser(newTableData.find((item) => item.id === id));
   };
 
-  //its deleting out of the old tableData
-  //it needs to delete from new tableData
-  //if item is deleted we need to update old tableData
   const handleDelete = (id) => {
     if (edit) {
       return;
@@ -159,65 +105,24 @@ const Table = () => {
     setSearchInput(e.target.value);
   };
 
-  // useEffect(() => {
-
-  // }, [searchInput]);
-
-  //when returning from search need to check updated data
-
   return (
     <div>
-      <input
-        type="text"
-        onChange={handleSearch}
-        placeholder="Search..."
-        value={searchInput}
+      <h1>Employee Table</h1>
+      <Search handleSearch={handleSearch} searchInput={searchInput} />
+      <AddUserForm
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        user={user}
+        edit={edit}
       />
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="First name"
-          name="firstName"
-          onChange={handleChange}
-          value={user.firstName}
-        />
-        <input
-          type="text"
-          placeholder="Last name"
-          name="lastName"
-          onChange={handleChange}
-          value={user.lastName}
-        />
-        <input
-          type="text"
-          placeholder="Email"
-          name="email"
-          onChange={handleChange}
-          value={user.email}
-        />
-        <input
-          type="text"
-          placeholder="Contact"
-          name="contact"
-          onChange={handleChange}
-          value={user.contact}
-        />
-        <button>{edit ? "Edit" : "Add"}</button>
-      </form>
       <div className="table-responsive">
         <table className="table table-dark table-hover">
-          <thead>
-            <tr>{generateHeaders}</tr>
-          </thead>
-          <tbody>
-            {tableData.length < 1 ? (
-              <tr>
-                <td>No users</td>
-              </tr>
-            ) : (
-              generateData
-            )}
-          </tbody>
+          <TableHeaders />
+          <TableDataCells
+            tableData={tableData}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+          />
         </table>
       </div>
     </div>
