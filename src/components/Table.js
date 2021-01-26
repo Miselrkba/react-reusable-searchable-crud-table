@@ -119,7 +119,7 @@ const Table = () => {
         <h1>Manage Employees</h1>
       </div>
       {edit ? (
-          <div class="alert alert-success fade-in" role="alert">
+          <div className="alert alert-success fade-in" role="alert">
             Edit user mode on
           </div>
         ) : null}

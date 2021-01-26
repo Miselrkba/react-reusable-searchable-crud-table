@@ -60,20 +60,18 @@ h1 {
   text-align: center;
 }
 
-/* 
-****animations */
+
+/* ****animations */
 
 .fade-in {
   animation-name: fade-in;
   animation-duration: 1s;
   animation-timing-function: ease-out;
   animation-fill-mode: both;
-  /* animation-delay: 2s; */
 }
 @keyframes fade-in {
   from {
     opacity: 0%;
-    /* width: 0%; */
   }
   to {
     opacity: 100%;
