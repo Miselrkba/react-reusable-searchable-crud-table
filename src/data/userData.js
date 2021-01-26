@@ -2,7 +2,7 @@ export const data = [
   {
     id: 'PJ3JE83VM',
     firstName: "Beverlie",
-    lastName: "Yeoman",
+    lastName: "Hill",
     email: "byeoman0@google.it",
     gender: "Female",
     contact: "0951590156",
@@ -28,6 +28,14 @@ export const data = [
     firstName: "Samuel",
     lastName: "Jackson",
     email: "samuel2@geocities.com",
+    gender: "Male",
+    contact: "0908978952",
+  },
+  {
+    id: 'RT3UA39LK',
+    firstName: "Robert",
+    lastName: "Square",
+    email: "square@google.com",
     gender: "Male",
     contact: "0908978952",
   },
