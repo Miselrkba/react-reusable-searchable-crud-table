@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const AddUserForm = ({ handleSubmit, handleChange, user, edit }) => {
   return (
@@ -44,7 +44,9 @@ const AddUserForm = ({ handleSubmit, handleChange, user, edit }) => {
             value={user.contact}
           />
         </div>
-        <button className="btn btn-primary">{edit ? "Edit" : "Add"}</button>
+        <button type="submit" className="btn btn-primary">
+          {edit ? 'Edit' : 'Add'}
+        </button>
       </div>
     </form>
   );

@@ -1,23 +1,25 @@
-import React from "react";
+import React from 'react';
 
 const TableHeaders = () => {
   const headers = [
-    "Employee Code",
-    "First Name",
-    "Last Name",
-    "Email",
-    "Contact",
-    "Actions",
+    'Employee Code',
+    'First Name',
+    'Last Name',
+    'Email',
+    'Contact',
+    'Actions',
   ];
 
-  const generateHeaders = headers.map((header) => (
-    <th key={header}>
-      <a href="/#" id={header}>
-        {header}
-      </a>
-    </th>
-  ));
-  
+  const generateHeaders = headers.map((header) => {
+    return (
+      <th key={header}>
+        <a href="/#" id={header}>
+          {header}
+        </a>
+      </th>
+    );
+  });
+
   return (
     <thead>
       <tr>{generateHeaders}</tr>

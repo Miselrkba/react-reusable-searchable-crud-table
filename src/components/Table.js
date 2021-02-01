@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { data } from '../data/userData';
+import data from '../data/userData';
 import createId from '../helpers/createId';
 import AddUserForm from './AddUserForm';
 import Search from './Search';
@@ -121,9 +121,6 @@ const Table = () => {
       })
     );
   };
-
-  // S -when editing form is not showing
-  // T -onHandleEdit need to show add user form
 
   return (
     <div className="main-table-container">
