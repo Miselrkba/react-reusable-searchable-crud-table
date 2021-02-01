@@ -1,37 +1,37 @@
-import React, { useEffect, useState } from "react";
-import { data } from "../data/userData";
-import { createId } from "../helpers/helpers";
-import AddUserForm from "./AddUserForm";
-import Search from "./Search";
-import TableDataCells from "./TableDataCells";
-import TableHeaders from "./TableHeaders";
-import "@fortawesome/fontawesome-free/css/all.css";
+import React, { useEffect, useState } from 'react';
+import { data } from '../data/userData';
+import createId from '../helpers/createId';
+import AddUserForm from './AddUserForm';
+import Search from './Search';
+import TableDataCells from './TableDataCells';
+import TableHeaders from './TableHeaders';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 const Table = () => {
   const initialFormState = {
-    id: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    contact: "",
+    id: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    contact: '',
   };
   const [tableData, setTableData] = useState(data);
   const [edit, setEdit] = useState(false);
   const [user, setUser] = useState(initialFormState);
   const [id, setId] = useState(createId());
-  const [searchInput, setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState('');
   const [newTableData, setNewTableData] = useState([...tableData]);
   const [addNewUser, setAddNewUser] = useState(false);
 
-  //Search functionality
-  //if there is value in searchInput filter updated table
-  //else display updated table
+  // Search functionality
+  // if there is value in searchInput filter updated table
+  // else display updated table
   useEffect(() => {
     if (searchInput.length >= 1) {
-      const searchResults = [...newTableData].filter((user) => {
+      const searchResults = [...newTableData].filter((userData) => {
         return (
-          user.firstName.toLowerCase().includes(searchInput) ||
-          user.lastName.toLowerCase().includes(searchInput)
+          userData.firstName.toLowerCase().includes(searchInput) ||
+          userData.lastName.toLowerCase().includes(searchInput)
         );
       });
       setTableData(searchResults);
@@ -40,22 +40,22 @@ const Table = () => {
     }
   }, [searchInput, newTableData]);
 
-  //set search value to target value
+  // set search value to target value
   const handleSearch = (e) => {
     setSearchInput(e.target.value);
   };
 
-  //Adding new user functionality
-  //set First Name and Last Name Email and Contact to target value
+  // Adding new user functionality
+  // set First Name and Last Name Email and Contact to target value
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
 
-  //after Submiting add new user to old tableData and newTabledata
-  //copy tableData and add new user to it
-  //also set newTableData to be able to get latest values
-  //if editing use the current id of user
+  // after Submiting add new user to old tableData and newTabledata
+  // copy tableData and add new user to it
+  // also set newTableData to be able to get latest values
+  // if editing use the current id of user
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!user.firstName && !user.lastName) {
@@ -76,7 +76,7 @@ const Table = () => {
       setId(createId());
     } else {
       const newUser = {
-        id: id,
+        id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
@@ -90,28 +90,40 @@ const Table = () => {
     }
   };
 
-  //Editing functionality
-  //set editing to true and filter updated table data to all users except selected user
-  //find user to be edited and set input value to this user
-  const handleEdit = (id) => {
+  // Editing functionality
+  // set editing to true and filter updated table data to all users except selected user
+  // find user to be edited and set input value to this user
+  const handleEdit = (userId) => {
     setEdit(true);
     setAddNewUser(true);
-    setTableData(newTableData.filter((item) => item.id !== id));
-    setUser(newTableData.find((item) => item.id === id));
+    setTableData(
+      newTableData.filter((item) => {
+        return item.id !== userId;
+      })
+    );
+    setUser(
+      newTableData.find((item) => {
+        return item.id === userId;
+      })
+    );
   };
 
-  //Delete user functionality
-  //if a user is being edited switch off delete funtionality
-  //filter all users that are not being deleted
-  const handleDelete = (id) => {
+  // Delete user functionality
+  // if a user is being edited switch off delete funtionality
+  // filter all users that are not being deleted
+  const handleDelete = (userId) => {
     if (edit) {
       return;
     }
-    setNewTableData(tableData.filter((item) => item.id !== id));
+    setNewTableData(
+      tableData.filter((item) => {
+        return item.id !== userId;
+      })
+    );
   };
 
-  //S -when editing form is not showing
-  //T -onHandleEdit need to show add user form
+  // S -when editing form is not showing
+  // T -onHandleEdit need to show add user form
 
   return (
     <div className="main-table-container">
@@ -119,15 +131,18 @@ const Table = () => {
         <h1>Manage Employees</h1>
       </div>
       {edit ? (
-          <div className="alert alert-success fade-in" role="alert">
-            Edit user mode on
-          </div>
-        ) : null}
+        <div className="alert alert-success fade-in" role="alert">
+          Edit user mode on
+        </div>
+      ) : null}
       <button
+        type="button"
         className="btn btn-info add-button"
-        onClick={() => setAddNewUser(!addNewUser)}
+        onClick={() => {
+          return setAddNewUser(!addNewUser);
+        }}
       >
-        <i className="fas fa-user-plus"></i>
+        <i className="fas fa-user-plus" />
         Add new user
       </button>
       <Search handleSearch={handleSearch} searchInput={searchInput} />
