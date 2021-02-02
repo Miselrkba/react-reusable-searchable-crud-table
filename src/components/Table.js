@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import data from '../data/userData';
+// import data from '../data/userData';
 import createId from '../helpers/createId';
 import AddUserForm from './AddUserForm';
 import Search from './Search';
@@ -7,7 +7,7 @@ import TableDataCells from './TableDataCells';
 import TableHeaders from './TableHeaders';
 import '@fortawesome/fontawesome-free/css/all.css';
 
-const Table = () => {
+const Table = ({data}) => {
   const initialFormState = {
     id: '',
     firstName: '',
@@ -15,13 +15,24 @@ const Table = () => {
     email: '',
     contact: '',
   };
-  const [tableData, setTableData] = useState(data);
+  const [tableData, setTableData] = useState([]);
   const [edit, setEdit] = useState(false);
   const [user, setUser] = useState(initialFormState);
   const [id, setId] = useState(createId());
   const [searchInput, setSearchInput] = useState('');
   const [newTableData, setNewTableData] = useState([...tableData]);
   const [addNewUser, setAddNewUser] = useState(false);
+
+
+  // get data 
+  const getTableData = async () => {
+    const importTableData = await data;
+        setTableData(importTableData);
+  };
+
+  useEffect(() => {
+    getTableData();
+  }, []);
 
   // Search functionality
   // if there is value in searchInput filter updated table
