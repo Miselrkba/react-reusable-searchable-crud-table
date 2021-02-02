@@ -16,11 +16,11 @@ const Table = ({ data }) => {
     contact: '',
   };
   const [tableData, setTableData] = useState([]);
+  // const [newTableData, setNewTableData] = useState([]);
   const [edit, setEdit] = useState(false);
   const [user, setUser] = useState(initialFormState);
   const [id, setId] = useState(createId());
   const [searchInput, setSearchInput] = useState('');
-  const [newTableData, setNewTableData] = useState([...tableData]);
   const [addNewUser, setAddNewUser] = useState(false);
 
   // get data
@@ -33,23 +33,7 @@ const Table = ({ data }) => {
     getTableData();
   }, []);
 
-  // Search functionality
-  // if there is value in searchInput filter updated table
-  // else display updated table
-  useEffect(() => {
-    if (searchInput.length >= 1) {
-      const searchResults = newTableData.filter((userData) => {
-        return (
-          userData.firstName.toLowerCase().includes(searchInput) ||
-          userData.lastName.toLowerCase().includes(searchInput)
-        );
-      });
-      setTableData(searchResults);
-    } else {
-      setTableData(newTableData);
-    }
-  }, [searchInput, newTableData]);
-
+  
   // set search value to target value
   const handleSearch = (e) => {
     setSearchInput(e.target.value);
@@ -80,7 +64,7 @@ const Table = ({ data }) => {
         contact: user.contact,
       };
       setTableData([...tableData, newUser]);
-      setNewTableData([...tableData, newUser]);
+      // setNewTableData([...tableData, newUser]);
       setUser(initialFormState);
       setEdit(false);
       setId(createId());
@@ -93,7 +77,7 @@ const Table = ({ data }) => {
         contact: user.contact,
       };
       setTableData([...tableData, newUser]);
-      setNewTableData([...tableData, newUser]);
+      // setNewTableData([...tableData, newUser]);
       setUser(initialFormState);
       setEdit(false);
       setId(createId());
@@ -107,12 +91,12 @@ const Table = ({ data }) => {
     setEdit(true);
     setAddNewUser(true);
     setTableData(
-      newTableData.filter((item) => {
+      tableData.filter((item) => {
         return item.id !== userId;
       })
     );
     setUser(
-      newTableData.find((item) => {
+      tableData.find((item) => {
         return item.id === userId;
       })
     );
@@ -125,7 +109,7 @@ const Table = ({ data }) => {
     if (edit) {
       return;
     }
-    setNewTableData(
+    setTableData(
       tableData.filter((item) => {
         return item.id !== userId;
       })
