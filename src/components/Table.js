@@ -143,14 +143,14 @@ const Table = () => {
         Add new user
       </button>
       <Search handleSearch={handleSearch} searchInput={searchInput} />
-      {addNewUser ? (
+      {addNewUser && (
         <AddUserForm
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           user={user}
           edit={edit}
         />
-      ) : null}
+      )}
       <div className="table-responsive">
         <table className="table table-dark table-hover table-bordered">
           <TableHeaders />

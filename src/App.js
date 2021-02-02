@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import './App.css';
-import Table from './components/Table';
+import data from './data/userData';
+
+const Table = lazy(() => {return import('./components/Table')});
 
 function App() {
   return (
-    <Table />
+    <Suspense fallback={<h1>Loading... </h1>}>
+      <Table data={data} />
+    </Suspense>
   );
 }
 
