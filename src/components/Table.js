@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import data from '../data/userData';
 import createId from '../helpers/createId';
 import AddUserForm from './AddUserForm';
 import Search from './Search';
@@ -16,11 +15,10 @@ const Table = ({ data }) => {
     contact: '',
   };
   const [tableData, setTableData] = useState([]);
-  // const [newTableData, setNewTableData] = useState([]);
   const [edit, setEdit] = useState(false);
   const [user, setUser] = useState(initialFormState);
   const [id, setId] = useState(createId());
-  const [searchInput, setSearchInput] = useState('');
+  const [filterText, setFilterText] = useState('');
   const [addNewUser, setAddNewUser] = useState(false);
 
   // get data
@@ -29,15 +27,10 @@ const Table = ({ data }) => {
     setTableData(importTableData);
   };
 
+   
   useEffect(() => {
     getTableData();
   }, []);
-
-  
-  // set search value to target value
-  const handleSearch = (e) => {
-    setSearchInput(e.target.value);
-  };
 
   // Adding new user functionality
   // set First Name and Last Name Email and Contact to target value
@@ -138,7 +131,7 @@ const Table = ({ data }) => {
         <i className="fas fa-user-plus" />
         Add new user
       </button>
-      <Search handleSearch={handleSearch} searchInput={searchInput} />
+      <Search filterText={filterText} onFilterTextChange={setFilterText} />
       {addNewUser && (
         <AddUserForm
           handleChange={handleChange}

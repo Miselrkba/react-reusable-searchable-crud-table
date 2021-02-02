@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Search = ({ handleSearch, searchInput }) => {
+const Search = ({ filterText, onFilterTextChange }) => {
   const handleFilterTextChange = (e) => {
-    handleSearch(e.target.value);
+    onFilterTextChange(e.target.value);
   };
 
   return (
@@ -13,7 +13,7 @@ const Search = ({ handleSearch, searchInput }) => {
           type="text"
           onChange={handleFilterTextChange}
           placeholder="Search..."
-          value={searchInput}
+          value={filterText}
         />
       </div>
     </div>
