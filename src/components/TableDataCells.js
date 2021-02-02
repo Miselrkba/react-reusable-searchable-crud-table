@@ -12,20 +12,22 @@ const TableDataCells = ({ tableData, handleEdit, handleDelete }) => {
           <td>{data.contact}</td>
           <td>
             <span className="edit-button-container">
-              <button type='button'
+              <button
+                type="button"
                 className="btn btn-warning"
                 onClick={() => {
-                  return handleEdit(data.id);
+                  handleEdit(data.id);
                 }}
               >
                 <i className="fas fa-user-edit" />
               </button>
             </span>
             <span className="delete-button-container">
-              <button type='button'
+              <button
+                type="button"
                 className="btn btn-danger"
                 onClick={() => {
-                  return handleDelete(data.id);
+                  handleDelete(data.id);
                 }}
               >
                 <i className="fas fa-trash-alt" />

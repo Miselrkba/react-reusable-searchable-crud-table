@@ -7,7 +7,7 @@ import TableDataCells from './TableDataCells';
 import TableHeaders from './TableHeaders';
 import '@fortawesome/fontawesome-free/css/all.css';
 
-const Table = ({data}) => {
+const Table = ({ data }) => {
   const initialFormState = {
     id: '',
     firstName: '',
@@ -23,11 +23,10 @@ const Table = ({data}) => {
   const [newTableData, setNewTableData] = useState([...tableData]);
   const [addNewUser, setAddNewUser] = useState(false);
 
-
-  // get data 
+  // get data
   const getTableData = async () => {
     const importTableData = await data;
-        setTableData(importTableData);
+    setTableData(importTableData);
   };
 
   useEffect(() => {
@@ -39,7 +38,7 @@ const Table = ({data}) => {
   // else display updated table
   useEffect(() => {
     if (searchInput.length >= 1) {
-      const searchResults = [...newTableData].filter((userData) => {
+      const searchResults = newTableData.filter((userData) => {
         return (
           userData.firstName.toLowerCase().includes(searchInput) ||
           userData.lastName.toLowerCase().includes(searchInput)
@@ -47,7 +46,7 @@ const Table = ({data}) => {
       });
       setTableData(searchResults);
     } else {
-      setTableData([...newTableData]);
+      setTableData(newTableData);
     }
   }, [searchInput, newTableData]);
 
