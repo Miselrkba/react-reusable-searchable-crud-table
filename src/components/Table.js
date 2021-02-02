@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import createId from '../helpers/createId';
 import AddUserForm from './AddUserForm';
 import Search from './Search';
-import TableDataCells from './TableDataCells';
+// import TableRows from './TableRows';
 import TableHeaders from './TableHeaders';
 import '@fortawesome/fontawesome-free/css/all.css';
+import TableRow from './TableRow';
 
 const Table = ({ data }) => {
   const initialFormState = {
@@ -27,7 +28,6 @@ const Table = ({ data }) => {
     setTableData(importTableData);
   };
 
-   
   useEffect(() => {
     getTableData();
   }, []);
@@ -57,7 +57,6 @@ const Table = ({ data }) => {
         contact: user.contact,
       };
       setTableData([...tableData, newUser]);
-      // setNewTableData([...tableData, newUser]);
       setUser(initialFormState);
       setEdit(false);
       setId(createId());
@@ -70,7 +69,6 @@ const Table = ({ data }) => {
         contact: user.contact,
       };
       setTableData([...tableData, newUser]);
-      // setNewTableData([...tableData, newUser]);
       setUser(initialFormState);
       setEdit(false);
       setId(createId());
@@ -109,6 +107,17 @@ const Table = ({ data }) => {
     );
   };
 
+  const rows = [];
+  // let lastCategory = null;
+
+  tableData.forEach((userName) => {
+    if (userName.firstName.indexOf(filterText) === -1) {
+      return;
+    }
+
+    rows.push(<TableRow userName={userName} key={userName.firstName} />);
+  });
+
   return (
     <div className="main-table-container">
       <div className="header">
@@ -131,7 +140,7 @@ const Table = ({ data }) => {
         <i className="fas fa-user-plus" />
         Add new user
       </button>
-      <Search filterText={filterText} onFilterTextChange={setFilterText} />
+      <Search filterText={filterText} onFilterTextChange={setFilterText} handleDelete={handleDelete} handleEdit={handleEdit} />
       {addNewUser && (
         <AddUserForm
           handleChange={handleChange}
@@ -143,11 +152,13 @@ const Table = ({ data }) => {
       <div className="table-responsive">
         <table className="table table-dark table-hover table-bordered">
           <TableHeaders />
-          <TableDataCells
+          {/* <TableRows
             tableData={tableData}
             handleEdit={handleEdit}
             handleDelete={handleDelete}
-          />
+            filterText={filterText}
+          /> */}
+          <tbody>{rows}</tbody>
         </table>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TableDataCells = ({ tableData, handleEdit, handleDelete }) => {
+const TableRows = ({ tableData, handleEdit, handleDelete }) => {
   const generateData = tableData.map((data) => {
     return (
       <React.Fragment key={data.id}>
@@ -52,4 +52,4 @@ const TableDataCells = ({ tableData, handleEdit, handleDelete }) => {
   );
 };
 
-export default TableDataCells;
+export default TableRows;
