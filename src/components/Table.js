@@ -127,16 +127,18 @@ const Table = () => {
       <div className="header">
         <h1>Manage Employees</h1>
       </div>
-      {edit ? (
+      {edit && (
         <div className="alert alert-success fade-in" role="alert">
           Edit user mode on
         </div>
-      ) : null}
+      )}
       <button
         type="button"
         className="btn btn-info add-button"
         onClick={() => {
-          return setAddNewUser(!addNewUser);
+          setAddNewUser((prevstate) => {
+            return !prevstate;
+          });
         }}
       >
         <i className="fas fa-user-plus" />
