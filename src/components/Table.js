@@ -114,7 +114,14 @@ const Table = ({ data }) => {
       return;
     }
 
-    rows.push(<TableRow userName={userName} key={userName.firstName} />);
+    rows.push(
+      <TableRow
+        userName={userName}
+        key={userName.firstName}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+      />
+    );
   });
 
   return (
@@ -139,7 +146,12 @@ const Table = ({ data }) => {
         <i className="fas fa-user-plus" />
         Add new user
       </button>
-      <Search filterText={filterText} onFilterTextChange={setFilterText} handleDelete={handleDelete} handleEdit={handleEdit} />
+      <Search
+        filterText={filterText}
+        onFilterTextChange={setFilterText}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+      />
       {addNewUser && (
         <AddUserForm
           handleChange={handleChange}
