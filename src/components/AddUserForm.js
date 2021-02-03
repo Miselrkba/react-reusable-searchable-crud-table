@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AddUserForm = ({ handleSubmit, handleChange, currentUser, isEditUserModeActive }) => {
+const AddUserForm = ({ handleSubmit, handleInputChange, currentUser, isEditUserModeActive }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-row form-container">
@@ -10,7 +10,7 @@ const AddUserForm = ({ handleSubmit, handleChange, currentUser, isEditUserModeAc
             type="text"
             placeholder="First name"
             name="firstName"
-            onChange={handleChange}
+            onChange={handleInputChange}
             value={currentUser.firstName}
           />
         </div>
@@ -20,7 +20,7 @@ const AddUserForm = ({ handleSubmit, handleChange, currentUser, isEditUserModeAc
             type="text"
             placeholder="Last name"
             name="lastName"
-            onChange={handleChange}
+            onChange={handleInputChange}
             value={currentUser.lastName}
           />
         </div>
@@ -30,7 +30,7 @@ const AddUserForm = ({ handleSubmit, handleChange, currentUser, isEditUserModeAc
             type="text"
             placeholder="Email"
             name="email"
-            onChange={handleChange}
+            onChange={handleInputChange}
             value={currentUser.email}
           />
         </div>
@@ -40,7 +40,7 @@ const AddUserForm = ({ handleSubmit, handleChange, currentUser, isEditUserModeAc
             type="text"
             placeholder="Contact"
             name="contact"
-            onChange={handleChange}
+            onChange={handleInputChange}
             value={currentUser.contact}
           />
         </div>
