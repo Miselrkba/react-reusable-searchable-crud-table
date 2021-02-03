@@ -15,7 +15,7 @@ const Table = ({ data }) => {
     contact: '',
   };
   const [tableData, setTableData] = useState([]);
-  const [edit, setEdit] = useState(false);
+  const [isEditUserModeActive, setIsEditUserModeActive] = useState(false);
   const [user, setUser] = useState(initialFormState);
   const [id, setId] = useState(createId());
   const [filterText, setFilterText] = useState('');
@@ -38,14 +38,13 @@ const Table = ({ data }) => {
     setUser({ ...user, [name]: value });
   };
 
-  // copy tableData and add new user to it
-  // if editing use the current id of user
+  // on submit add new user
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!user.firstName && !user.lastName) {
       return;
     }
-    if (edit) {
+    if (isEditUserModeActive) {
       const newUser = {
         id: user.id,
         firstName: user.firstName,
@@ -55,7 +54,7 @@ const Table = ({ data }) => {
       };
       setTableData([...tableData, newUser]);
       setUser(initialFormState);
-      setEdit(false);
+      setIsEditUserModeActive(false);
       setId(createId());
     } else {
       const newUser = {
@@ -67,7 +66,7 @@ const Table = ({ data }) => {
       };
       setTableData([...tableData, newUser]);
       setUser(initialFormState);
-      setEdit(false);
+      setIsEditUserModeActive(false);
       setId(createId());
     }
   };
@@ -76,7 +75,7 @@ const Table = ({ data }) => {
   // set editing to true and filter updated table data to all users except selected user
   // find user to be edited and set input value to this user
   const handleEdit = (userId) => {
-    setEdit(true);
+    setIsEditUserModeActive(true);
     setAddNewUser(true);
     setTableData(
       tableData.filter((item) => {
@@ -94,7 +93,7 @@ const Table = ({ data }) => {
   // if a user is being edited switch off delete funtionality
   // filter all users that are not being deleted
   const handleDelete = (userId) => {
-    if (edit) {
+    if (isEditUserModeActive) {
       return;
     }
     setTableData(
@@ -104,7 +103,7 @@ const Table = ({ data }) => {
     );
   };
 
-  // search functionality by Last name
+  // search functionality - search by Last name
   // check target value of filtertext input againts tableData
   // and push to row
   const rows = [];
@@ -129,7 +128,7 @@ const Table = ({ data }) => {
       <div className="header">
         <h1>Manage Employees</h1>
       </div>
-      {edit && (
+      {isEditUserModeActive && (
         <div className="alert alert-success fade-in" role="alert">
           Edit user mode on
         </div>
@@ -157,7 +156,7 @@ const Table = ({ data }) => {
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           user={user}
-          edit={edit}
+          edit={isEditUserModeActive}
         />
       )}
       <div className="table-responsive">
