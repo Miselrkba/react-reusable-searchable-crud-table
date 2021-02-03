@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AddUserForm = ({ handleSubmit, handleChange, user, edit }) => {
+const AddUserForm = ({ handleSubmit, handleChange, currentUser, isEditUserModeActive }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-row form-container">
@@ -11,7 +11,7 @@ const AddUserForm = ({ handleSubmit, handleChange, user, edit }) => {
             placeholder="First name"
             name="firstName"
             onChange={handleChange}
-            value={user.firstName}
+            value={currentUser.firstName}
           />
         </div>
         <div className="col col-md-2">
@@ -21,7 +21,7 @@ const AddUserForm = ({ handleSubmit, handleChange, user, edit }) => {
             placeholder="Last name"
             name="lastName"
             onChange={handleChange}
-            value={user.lastName}
+            value={currentUser.lastName}
           />
         </div>
         <div className="col col-md-2">
@@ -31,7 +31,7 @@ const AddUserForm = ({ handleSubmit, handleChange, user, edit }) => {
             placeholder="Email"
             name="email"
             onChange={handleChange}
-            value={user.email}
+            value={currentUser.email}
           />
         </div>
         <div className="col col-md-2">
@@ -41,11 +41,11 @@ const AddUserForm = ({ handleSubmit, handleChange, user, edit }) => {
             placeholder="Contact"
             name="contact"
             onChange={handleChange}
-            value={user.contact}
+            value={currentUser.contact}
           />
         </div>
         <button type="submit" className="btn btn-primary">
-          {edit ? 'Edit' : 'Add'}
+          {isEditUserModeActive ? 'Edit' : 'Add'}
         </button>
       </div>
     </form>

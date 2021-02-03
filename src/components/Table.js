@@ -16,7 +16,7 @@ const Table = ({ data }) => {
   };
   const [tableData, setTableData] = useState([]);
   const [isEditUserModeActive, setIsEditUserModeActive] = useState(false);
-  const [user, setUser] = useState(initialFormState);
+  const [currentUser, setCurrentUser] = useState(initialFormState);
   const [id, setId] = useState(createId());
   const [filterText, setFilterText] = useState('');
   const [addNewUser, setAddNewUser] = useState(false);
@@ -35,37 +35,37 @@ const Table = ({ data }) => {
   // set First Name and Last Name Email and Contact to target value
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+    setCurrentUser({ ...currentUser, [name]: value });
   };
 
   // on submit add new user
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!user.firstName && !user.lastName) {
+    if (!currentUser.firstName && !currentUser.lastName) {
       return;
     }
     if (isEditUserModeActive) {
       const newUser = {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        contact: user.contact,
+        id: currentUser.id,
+        firstName: currentUser.firstName,
+        lastName: currentUser.lastName,
+        email: currentUser.email,
+        contact: currentUser.contact,
       };
       setTableData([...tableData, newUser]);
-      setUser(initialFormState);
+      setCurrentUser(initialFormState);
       setIsEditUserModeActive(false);
       setId(createId());
     } else {
       const newUser = {
         id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        contact: user.contact,
+        firstName: currentUser.firstName,
+        lastName: currentUser.lastName,
+        email: currentUser.email,
+        contact: currentUser.contact,
       };
       setTableData([...tableData, newUser]);
-      setUser(initialFormState);
+      setCurrentUser(initialFormState);
       setIsEditUserModeActive(false);
       setId(createId());
     }
@@ -82,7 +82,7 @@ const Table = ({ data }) => {
         return item.id !== userId;
       })
     );
-    setUser(
+    setCurrentUser(
       tableData.find((item) => {
         return item.id === userId;
       })
@@ -155,8 +155,8 @@ const Table = ({ data }) => {
         <AddUserForm
           handleChange={handleChange}
           handleSubmit={handleSubmit}
-          user={user}
-          edit={isEditUserModeActive}
+          currentUser={currentUser}
+          isEditUserModeActive={isEditUserModeActive}
         />
       )}
       <div className="table-responsive">
