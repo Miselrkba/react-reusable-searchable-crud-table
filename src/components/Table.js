@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import createId from '../helpers/createId';
 import AddUserForm from './AddUserForm';
 import Search from './Search';
-// import TableRows from './TableRows';
 import TableHeaders from './TableHeaders';
 import '@fortawesome/fontawesome-free/css/all.css';
 import TableRow from './TableRow';
@@ -32,16 +31,14 @@ const Table = ({ data }) => {
     getTableData();
   }, []);
 
-  // Adding new user functionality
+  // add new user functionality
   // set First Name and Last Name Email and Contact to target value
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
 
-  // after Submiting add new user to old tableData and newTabledata
   // copy tableData and add new user to it
-  // also set newTableData to be able to get latest values
   // if editing use the current id of user
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -75,7 +72,7 @@ const Table = ({ data }) => {
     }
   };
 
-  // Editing functionality
+  // editing user functionality
   // set editing to true and filter updated table data to all users except selected user
   // find user to be edited and set input value to this user
   const handleEdit = (userId) => {
@@ -93,7 +90,7 @@ const Table = ({ data }) => {
     );
   };
 
-  // Delete user functionality
+  // delete user functionality
   // if a user is being edited switch off delete funtionality
   // filter all users that are not being deleted
   const handleDelete = (userId) => {
@@ -107,11 +104,13 @@ const Table = ({ data }) => {
     );
   };
 
+  // search functionality by Last name
+  // check target value of filtertext input againts tableData
+  // and push to row
   const rows = [];
-  // let lastCategory = null;
 
   tableData.forEach((userName) => {
-    if (userName.firstName.indexOf(filterText) === -1) {
+    if (userName.lastName.indexOf(filterText) === -1) {
       return;
     }
 
@@ -152,12 +151,6 @@ const Table = ({ data }) => {
       <div className="table-responsive">
         <table className="table table-dark table-hover table-bordered">
           <TableHeaders />
-          {/* <TableRows
-            tableData={tableData}
-            handleEdit={handleEdit}
-            handleDelete={handleDelete}
-            filterText={filterText}
-          /> */}
           <tbody>{rows}</tbody>
         </table>
       </div>
