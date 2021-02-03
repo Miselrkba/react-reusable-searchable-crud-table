@@ -145,12 +145,7 @@ const Table = ({ data }) => {
         <i className="fas fa-user-plus" />
         Add new user
       </button>
-      <Search
-        filterText={filterText}
-        onFilterTextChange={setFilterText}
-        handleDelete={handleDelete}
-        handleEdit={handleEdit}
-      />
+      <Search filterText={filterText} onFilterTextChange={setFilterText} />
       {addNewUser && (
         <AddUserForm
           handleChange={handleChange}
@@ -162,7 +157,15 @@ const Table = ({ data }) => {
       <div className="table-responsive">
         <table className="table table-dark table-hover table-bordered">
           <TableHeaders />
-          <tbody>{rows}</tbody>
+          <tbody>
+            {tableData.length < 1 ? (
+              <tr>
+                <td>No users</td>
+              </tr>
+            ) : (
+              rows
+            )}
+          </tbody>
         </table>
       </div>
     </div>
