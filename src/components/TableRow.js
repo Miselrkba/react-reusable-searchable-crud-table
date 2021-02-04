@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TableRow = ({ userName, handleEdit, handleDelete }) => {
+const TableRow = ({ userName, handleEdit, handleDelete, isEditUserModeActive }) => {
   return (
     <React.Fragment key={userName.id}>
       <tr>
@@ -14,6 +14,7 @@ const TableRow = ({ userName, handleEdit, handleDelete }) => {
             <button
               type="button"
               className="btn btn-warning"
+              disabled={isEditUserModeActive}
               onClick={() => {
                 handleEdit(userName.id);
               }}
@@ -25,6 +26,7 @@ const TableRow = ({ userName, handleEdit, handleDelete }) => {
             <button
               type="button"
               className="btn btn-danger"
+              disabled={isEditUserModeActive}
               onClick={() => {
                 handleDelete(userName.id);
               }}

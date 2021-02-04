@@ -95,9 +95,6 @@ const Table = ({ data }) => {
   // if a user is being edited switch off delete functionality
   // filter all users that are not being deleted
   const handleDelete = (userId) => {
-    if (isEditUserModeActive) {
-      return;
-    }
     setTableData(
       tableData.filter((item) => {
         return item.id !== userId;
@@ -121,6 +118,7 @@ const Table = ({ data }) => {
         key={userName.firstName}
         handleDelete={handleDelete}
         handleEdit={handleEdit}
+        isEditUserModeActive={isEditUserModeActive}
       />
     );
   });
