@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { arrayOf,  shape, string } from 'prop-types';
+import { arrayOf, shape, string } from 'prop-types';
 import createId from '../helpers/createId';
 import AddUserForm from './AddUserForm';
 import Search from './Search';
@@ -33,13 +33,13 @@ const Table = ({ data }) => {
   }, []);
 
   // add new user functionality
-  // set First Name, Last Name, email and contact to target value
+  // set first Name, last Name, email and contact to target value
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setCurrentUser({ ...currentUser, [name]: value });
   };
 
-  // on submit add new user
+  // on submit add new user or edit user
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!currentUser.firstName && !currentUser.lastName) {
@@ -56,6 +56,7 @@ const Table = ({ data }) => {
       setTableData([...tableData, newUser]);
       setCurrentUser(initialFormState);
       setIsEditUserModeActive(false);
+      setAddNewUser(false);
       setId(createId());
     } else {
       const newUser = {
@@ -71,9 +72,6 @@ const Table = ({ data }) => {
       setId(createId());
     }
   };
-
-  // eslint-disable-next-line no-console
-  console.log(currentUser);
 
   // editing user functionality
   // set editing to true and filter updated table data to all users except selected user
@@ -94,7 +92,7 @@ const Table = ({ data }) => {
   };
 
   // delete user functionality
-  // if a user is being edited switch off delete funtionality
+  // if a user is being edited switch off delete functionality
   // filter all users that are not being deleted
   const handleDelete = (userId) => {
     if (isEditUserModeActive) {
@@ -107,9 +105,9 @@ const Table = ({ data }) => {
     );
   };
 
-  // search functionality - search by Last name
+  // search functionality - search by last name
   // check target value of filtertext input againts tableData
-  // and push to row
+  // and push to rows
   const rows = [];
 
   tableData.forEach((userName) => {

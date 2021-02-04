@@ -1,3 +1,4 @@
+import { func, string } from 'prop-types';
 import React from 'react';
 
 const Search = ({ filterText, onFilterTextChange }) => {
@@ -19,5 +20,11 @@ const Search = ({ filterText, onFilterTextChange }) => {
     </div>
   );
 };
+
+Search.propTypes = {
+  filterText: string.isRequired,
+   onFilterTextChange: func.isRequired
+}
+
 
 export default Search;
