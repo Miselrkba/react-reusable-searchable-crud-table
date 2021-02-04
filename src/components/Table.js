@@ -33,7 +33,7 @@ const Table = ({ data }) => {
 
   // add new user functionality
   // set First Name, Last Name, email and contact to target value
-  const handleInpuChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCurrentUser({ ...currentUser, [name]: value });
   };
@@ -148,7 +148,7 @@ const Table = ({ data }) => {
       <Search filterText={filterText} onFilterTextChange={setFilterText} />
       {addNewUser && (
         <AddUserForm
-          handleInpuChange={handleInpuChange}
+          handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
           currentUser={currentUser}
           isEditUserModeActive={isEditUserModeActive}
