@@ -22,7 +22,7 @@
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "arrow-body-style": ["error", "always"],
       "comma-dangle": ["error", "only-multiline"],
-      "react/prop-types": 1,
+      "react/prop-types": 0,
       "no-console": ["error", { "allow": ["warn", "error"] }],
       "no-nested-ternary": "off"
     }
