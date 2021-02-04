@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { arrayOf, number, shape, string } from 'prop-types';
 import createId from '../helpers/createId';
 import AddUserForm from './AddUserForm';
 import Search from './Search';
@@ -33,14 +34,14 @@ const Table = ({ data }) => {
 
   // add new user functionality
   // set First Name, Last Name, email and contact to target value
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
     setCurrentUser({ ...currentUser, [name]: value });
   };
 
   // on submit add new user
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     if (!currentUser.firstName && !currentUser.lastName) {
       return;
     }
@@ -170,6 +171,19 @@ const Table = ({ data }) => {
       </div>
     </div>
   );
+};
+
+Table.propTypes = {
+  data: arrayOf(
+    shape({
+      id: string,
+      firstName: string,
+      lastName: string,
+      email: string,
+      gender: string,
+      contact: number,
+    })
+  ).isRequired,
 };
 
 export default Table;

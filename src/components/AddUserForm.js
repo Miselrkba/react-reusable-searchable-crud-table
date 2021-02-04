@@ -1,6 +1,10 @@
 import React from 'react';
 
 const AddUserForm = ({ handleSubmit, handleInputChange, currentUser, isEditUserModeActive }) => {
+
+  const addUserFormInputChange = (event) => {
+    handleInputChange(event)
+  }
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-row form-container">
@@ -10,7 +14,7 @@ const AddUserForm = ({ handleSubmit, handleInputChange, currentUser, isEditUserM
             type="text"
             placeholder="First name"
             name="firstName"
-            onChange={handleInputChange}
+            onChange={addUserFormInputChange}
             value={currentUser.firstName}
           />
         </div>
@@ -20,7 +24,7 @@ const AddUserForm = ({ handleSubmit, handleInputChange, currentUser, isEditUserM
             type="text"
             placeholder="Last name"
             name="lastName"
-            onChange={handleInputChange}
+            onChange={addUserFormInputChange}
             value={currentUser.lastName}
           />
         </div>
@@ -30,7 +34,7 @@ const AddUserForm = ({ handleSubmit, handleInputChange, currentUser, isEditUserM
             type="text"
             placeholder="Email"
             name="email"
-            onChange={handleInputChange}
+            onChange={addUserFormInputChange}
             value={currentUser.email}
           />
         </div>
@@ -40,7 +44,7 @@ const AddUserForm = ({ handleSubmit, handleInputChange, currentUser, isEditUserM
             type="text"
             placeholder="Contact"
             name="contact"
-            onChange={handleInputChange}
+            onChange={addUserFormInputChange}
             value={currentUser.contact}
           />
         </div>
@@ -51,5 +55,14 @@ const AddUserForm = ({ handleSubmit, handleInputChange, currentUser, isEditUserM
     </form>
   );
 };
+
+
+// AddUserForm.propTypes = {
+  
+//   tableDefaultSortColumn: string.isRequired,
+//   isActionsMenuVisible: bool.isRequired,
+//   sortable: bool.isRequired,
+//   handleSubmit, handleInputChange, currentUser, isEditUserModeActive
+// };
 
 export default AddUserForm;
