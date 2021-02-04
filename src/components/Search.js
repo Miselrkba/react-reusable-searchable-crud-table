@@ -13,7 +13,7 @@ const Search = ({ filterText, onFilterTextChange }) => {
           className="form-control"
           type="text"
           onChange={handleFilterTextChange}
-          placeholder="Search by Last name"
+          placeholder="Search by Last name ..."
           value={filterText}
         />
       </div>
