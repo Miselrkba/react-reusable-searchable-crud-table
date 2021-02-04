@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { arrayOf, number, shape, string } from 'prop-types';
+import { arrayOf,  shape, string } from 'prop-types';
 import createId from '../helpers/createId';
 import AddUserForm from './AddUserForm';
 import Search from './Search';
@@ -71,6 +71,9 @@ const Table = ({ data }) => {
       setId(createId());
     }
   };
+
+  // eslint-disable-next-line no-console
+  console.log(currentUser);
 
   // editing user functionality
   // set editing to true and filter updated table data to all users except selected user
@@ -181,7 +184,7 @@ Table.propTypes = {
       lastName: string,
       email: string,
       gender: string,
-      contact: number,
+      contact: string,
     })
   ).isRequired,
 };

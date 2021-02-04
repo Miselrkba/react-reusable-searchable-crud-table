@@ -1,12 +1,20 @@
+import { bool, exact, func, string } from 'prop-types';
 import React from 'react';
 
-const AddUserForm = ({ handleSubmit, handleInputChange, currentUser, isEditUserModeActive }) => {
-
+const AddUserForm = ({
+  handleSubmit,
+  handleInputChange,
+  currentUser,
+  isEditUserModeActive,
+}) => {
   const addUserFormInputChange = (event) => {
-    handleInputChange(event)
-  }
+    handleInputChange(event);
+  };
+  const addUserFormSubmit = (event) => {
+    handleSubmit(event);
+  };
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={addUserFormSubmit}>
       <div className="form-row form-container">
         <div className="col col-md-2">
           <input
@@ -56,13 +64,18 @@ const AddUserForm = ({ handleSubmit, handleInputChange, currentUser, isEditUserM
   );
 };
 
-
-// AddUserForm.propTypes = {
-  
-//   tableDefaultSortColumn: string.isRequired,
-//   isActionsMenuVisible: bool.isRequired,
-//   sortable: bool.isRequired,
-//   handleSubmit, handleInputChange, currentUser, isEditUserModeActive
-// };
+AddUserForm.propTypes = {
+  currentUser: exact({
+    id: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    gender: string,
+    contact: string,
+  }).isRequired,
+  handleSubmit: func.isRequired,
+  handleInputChange: func.isRequired,
+  isEditUserModeActive: bool.isRequired,
+};
 
 export default AddUserForm;
