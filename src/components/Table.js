@@ -20,7 +20,7 @@ const Table = ({ data }) => {
   const [currentUser, setCurrentUser] = useState(initialFormState);
   const [id, setId] = useState(createId());
   const [filterText, setFilterText] = useState('');
-  const [addNewUser, setAddNewUser] = useState(false);
+  const [isAddNewUserModeActive, setIsAddNewUserModeActive] = useState(false);
 
   // get data
   const getTableData = async () => {
@@ -56,7 +56,7 @@ const Table = ({ data }) => {
       setTableData([...tableData, newUser]);
       setCurrentUser(initialFormState);
       setIsEditUserModeActive(false);
-      setAddNewUser(false);
+      setIsAddNewUserModeActive(false);
       setId(createId());
     } else {
       const newUser = {
@@ -78,7 +78,7 @@ const Table = ({ data }) => {
   // find user to be edited and set input value to this user
   const handleEdit = (userId) => {
     setIsEditUserModeActive(true);
-    setAddNewUser(true);
+    setIsAddNewUserModeActive(true);
     setTableData(
       tableData.filter((item) => {
         return item.id !== userId;
@@ -114,8 +114,8 @@ const Table = ({ data }) => {
 
     rows.push(
       <TableRow
+        key={userName.id}
         userName={userName}
-        key={userName.firstName}
         handleDelete={handleDelete}
         handleEdit={handleEdit}
         isEditUserModeActive={isEditUserModeActive}
@@ -137,7 +137,7 @@ const Table = ({ data }) => {
         type="button"
         className="btn btn-info add-button"
         onClick={() => {
-          setAddNewUser((prevstate) => {
+          setIsAddNewUserModeActive((prevstate) => {
             return !prevstate;
           });
         }}
@@ -146,7 +146,7 @@ const Table = ({ data }) => {
         Add new user
       </button>
       <Search filterText={filterText} onFilterTextChange={setFilterText} />
-      {addNewUser && (
+      {isAddNewUserModeActive && (
         <AddUserForm
           handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
