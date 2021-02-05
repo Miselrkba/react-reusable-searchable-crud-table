@@ -20,8 +20,11 @@ h1 {
 .main-table-container {
   margin: 1em;
   box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.table-responsive {
   overflow-y: auto;
-  overflow-x: hidden;
+  max-height: 56vh;
 }
 
 .search-container {
