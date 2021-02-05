@@ -1,6 +1,18 @@
 import React from 'react';
 
-const TableRow = ({ userName, handleEdit, handleDelete, isEditUserModeActive }) => {
+const TableRow = ({
+  userName,
+  handleEdit,
+  handleDelete,
+  isEditUserModeActive,
+}) => {
+  const tableRowEdit = () => {
+    handleEdit(userName.id);
+  };
+  const tableRowDelete = () => {
+    handleDelete(userName.id);
+  };
+
   return (
     <React.Fragment key={userName.id}>
       <tr>
@@ -15,9 +27,7 @@ const TableRow = ({ userName, handleEdit, handleDelete, isEditUserModeActive }) 
               type="button"
               className="btn btn-warning"
               disabled={isEditUserModeActive}
-              onClick={() => {
-                handleEdit(userName.id);
-              }}
+              onClick={tableRowEdit}
             >
               <i className="fas fa-user-edit" />
             </button>
@@ -27,9 +37,7 @@ const TableRow = ({ userName, handleEdit, handleDelete, isEditUserModeActive }) 
               type="button"
               className="btn btn-danger"
               disabled={isEditUserModeActive}
-              onClick={() => {
-                handleDelete(userName.id);
-              }}
+              onClick={tableRowDelete}
             >
               <i className="fas fa-trash-alt" />
             </button>

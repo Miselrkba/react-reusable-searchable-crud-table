@@ -92,7 +92,6 @@ const Table = ({ data }) => {
   };
 
   // delete user functionality
-  // if a user is being edited switch off delete functionality
   // filter all users that are not being deleted
   const handleDelete = (userId) => {
     setTableData(
@@ -123,6 +122,12 @@ const Table = ({ data }) => {
     );
   });
 
+  const toggleAddNewUserMode = () => {
+    setIsAddNewUserModeActive((prevstate) => {
+      return !prevstate;
+    });
+  };
+
   return (
     <div className="main-table-container">
       <div className="header">
@@ -136,11 +141,7 @@ const Table = ({ data }) => {
       <button
         type="button"
         className="btn btn-info add-button"
-        onClick={() => {
-          setIsAddNewUserModeActive((prevstate) => {
-            return !prevstate;
-          });
-        }}
+        onClick={toggleAddNewUserMode}
       >
         <i className="fas fa-user-plus" />
         Add new user
